@@ -7,13 +7,28 @@
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/asserts/css/jquery.flex-images.css">
     <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="/asserts/js/upload.js"></script>
+    <script src="/asserts/js/jquery.flex-images.js"></script>
+
 </head>
 <body>
-<div id="mainBody" class="container-fluid" style="height: 800px">
-    Hello
+<div id="mainBody" class="flex-images">
+    <div class="item" data-w="170" data-h="150"><img src="/asserts/img/7dd98d1001e93901c922329d71ec54e736d19675.jpg">
+    </div>
+    <div class="item" data-w="170" data-h="150"><img src="/asserts/img/7dd98d1001e93901c922329d71ec54e736d19675.jpg">
+    </div>
+    <div class="item" data-w="170" data-h="150"><img src="/asserts/img/7dd98d1001e93901c922329d71ec54e736d19675.jpg">
+    </div>
+    <div class="item" data-w="170" data-h="150"><img src="/asserts/img/7dd98d1001e93901c922329d71ec54e736d19675.jpg">
+    </div>
+    <div class="item" data-w="170" data-h="150"><img src="/asserts/img/7dd98d1001e93901c922329d71ec54e736d19675.jpg">
+    </div>
 </div>
+<script>
+    $('#mainBody').flexImages({rowHeight: 140});
+</script>
 </body>
 </html>
