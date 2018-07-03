@@ -26,7 +26,7 @@ window.onload = function () {
             xhr.open("POST", "/upload")
             //xhr.setRequestHeader("Content-Type", "multipart/form-data;boundary=##AaB03x")
             xhr.onload = function (evt) {
-                alert(evt.target.responseText)
+                alert("上传成功")
             }
             xhr.send(form)
         } else {
