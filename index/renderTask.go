@@ -34,9 +34,17 @@ func Init() *[]byte {
 	return &fileContent
 }
 func clearHtml(fileNameList []string) {
+	len := len(fileNameList)
 	for _, fileName := range fileNameList {
-		if strings.EqualFold(fileName, fileOrg.TemplateFile()) {
-
+		if len <= 2 {
+			return
+		}
+		len--
+		if strings.HasPrefix(fileName, "index") {
+			if (strings.EqualFold(fileName, fileOrg.TemplateFile())) {
+				continue
+			}
+			os.Remove(fileOrg.HtmlOf(fileName))
 		}
 	}
 }
