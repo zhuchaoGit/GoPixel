@@ -27,6 +27,6 @@ func setupRouter() *gin.Engine {
 func main() {
 	indexHtmlPtr = index.Init()
 	r := setupRouter()
-	go index.RenderTask(indexHtmlPtr)
+	go index.RenderTask(&indexHtmlPtr)
 	r.Run(":8080")
 }

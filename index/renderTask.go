@@ -16,7 +16,7 @@ func extraDirName(dir []os.FileInfo) []string {
 	imgList := make([] string, len(dir), len(dir))
 	id := 0
 	for _, fileInfo := range dir {
-		if strings.HasPrefix(fileInfo.Name(), ".") {
+		if strings.HasPrefix(fileInfo.Name(), ".") || strings.EqualFold(fileInfo.Name(), "") {
 			continue
 		}
 		imgList[id] = fileInfo.Name()
@@ -29,12 +29,10 @@ func Init() *[]byte {
 	fileList := extraDirName(dir);
 	sort.Strings(fileList)
 	fileName := fileList[len(fileList)-1]
-	file, _ := os.Open("asserts/html/" + fileName)
-	fileContent, _ := ioutil.ReadAll(file);
-	defer file.Close()
+	fileContent, _ := ioutil.ReadFile(fileName);
 	return &fileContent
 }
-func RenderTask(ptr *[]byte) {
+func RenderTask(ptr **[]byte) {
 	ticker := time.NewTicker(5 * time.Second)
 	for t := range ticker.C {
 		log.Printf("render new template:%d", t.Unix())
@@ -57,8 +55,8 @@ func RenderTask(ptr *[]byte) {
 			log.Fatal(renderError)
 		}
 		writer.Flush()
-		data, _ := ioutil.ReadAll(file);
-		ptr = &data
 		file.Close()
+		data, _ := ioutil.ReadFile(fileName)
+		*ptr = &data
 	}
 }
