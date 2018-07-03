@@ -30,7 +30,7 @@ func Init() *[]byte {
 	fileList := extraDirName(dir);
 	sort.Strings(fileList)
 	fileName := fileList[len(fileList)-1]
-	fileContent, _ := ioutil.ReadFile(fileName);
+	fileContent, _ := ioutil.ReadFile(fileOrg.HtmlOf(fileName));
 	return &fileContent
 }
 func RenderTask(ptr **[]byte) {
