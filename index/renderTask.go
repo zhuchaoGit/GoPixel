@@ -33,18 +33,19 @@ func Init() *[]byte {
 	fileContent, _ := ioutil.ReadFile(fileOrg.HtmlOf(fileName));
 	return &fileContent
 }
-func clearHtml(fileNameList []string) {
-	fileCount := len(fileNameList)
-	for _, fileName := range fileNameList {
+func clearHtml() {
+	dir, _ := ioutil.ReadDir(fileOrg.HtmlPath())
+	fileCount := len(dir)
+	for _, fileInfo := range dir {
 		if fileCount <= 2 {
 			return
 		}
 		fileCount--
-		if strings.HasPrefix(fileName, "index") {
-			if (strings.EqualFold(fileName, fileOrg.TemplateFile())) {
+		if strings.HasPrefix(fileInfo.Name(), "index") {
+			if (strings.EqualFold(fileInfo.Name(), fileOrg.TemplateFile())) {
 				continue
 			}
-			os.Remove(fileOrg.HtmlOf(fileName))
+			os.Remove(fileOrg.HtmlOf(fileInfo.Name()))
 		}
 	}
 }
@@ -74,6 +75,6 @@ func RenderTask(ptr **[]byte) {
 		file.Close()
 		data, _ := ioutil.ReadFile(fileOrg.HtmlOf(fileName))
 		*ptr = &data
-		clearHtml(imgIdList)
+		clearHtml()
 	}
 }
