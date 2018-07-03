@@ -33,6 +33,13 @@ func Init() *[]byte {
 	fileContent, _ := ioutil.ReadFile(fileOrg.HtmlOf(fileName));
 	return &fileContent
 }
+func clearHtml(fileNameList []string) {
+	for _, fileName := range fileNameList {
+		if strings.EqualFold(fileName, fileOrg.TemplateFile()) {
+
+		}
+	}
+}
 func RenderTask(ptr **[]byte) {
 	ticker := time.NewTicker(5 * time.Second)
 	for t := range ticker.C {
@@ -44,7 +51,7 @@ func RenderTask(ptr **[]byte) {
 			continue
 		}
 		writer := bufio.NewWriter(file)
-		tp, err := template.ParseFiles(fileOrg.HtmlOf("index_0000000000.html"))
+		tp, err := template.ParseFiles(fileOrg.TemplatePath())
 		if err != nil {
 			log.Fatal(err)
 			continue
@@ -59,5 +66,6 @@ func RenderTask(ptr **[]byte) {
 		file.Close()
 		data, _ := ioutil.ReadFile(fileOrg.HtmlOf(fileName))
 		*ptr = &data
+		clearHtml(imgIdList)
 	}
 }
