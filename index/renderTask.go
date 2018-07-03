@@ -10,6 +10,7 @@ import (
 	"html/template"
 	"strings"
 	"sort"
+	"github.com/zhuchao/GoPixel/fileOrg"
 )
 
 func extraDirName(dir []os.FileInfo) []string {
@@ -25,7 +26,7 @@ func extraDirName(dir []os.FileInfo) []string {
 	return imgList
 }
 func Init() *[]byte {
-	dir, _ := ioutil.ReadDir("asserts/html")
+	dir, _ := ioutil.ReadDir(fileOrg.ImgPath())
 	fileList := extraDirName(dir);
 	sort.Strings(fileList)
 	fileName := fileList[len(fileList)-1]
@@ -37,18 +38,18 @@ func RenderTask(ptr **[]byte) {
 	for t := range ticker.C {
 		log.Printf("render new template:%d", t.Unix())
 		fileName := fmt.Sprintf("index_%10d.html", t.Unix())
-		file, outError := os.Create("asserts/html/" + fileName)
+		file, outError := os.Create(fileOrg.ImgOf(fileName))
 		if outError != nil {
 			log.Fatal(outError)
 			continue
 		}
 		writer := bufio.NewWriter(file)
-		tp, err := template.ParseFiles("asserts/html/index_0000000000.html");
+		tp, err := template.ParseFiles(fileOrg.ImgOf("index_0000000000.html"))
 		if err != nil {
 			log.Fatal(err)
 			continue
 		}
-		dir, _ := ioutil.ReadDir("asserts/img")
+		dir, _ := ioutil.ReadDir(fileOrg.ImgPath())
 		imgIdList := extraDirName(dir)
 		renderError := tp.Execute(writer, imgIdList);
 		if renderError != nil {
@@ -56,7 +57,7 @@ func RenderTask(ptr **[]byte) {
 		}
 		writer.Flush()
 		file.Close()
-		data, _ := ioutil.ReadFile(fileName)
+		data, _ := ioutil.ReadFile(fileOrg.ImgOf(fileName))
 		*ptr = &data
 	}
 }
