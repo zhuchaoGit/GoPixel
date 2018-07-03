@@ -29,7 +29,7 @@ func Init() *[]byte {
 	fileList := extraDirName(dir);
 	sort.Strings(fileList)
 	fileName := fileList[len(fileList)-1]
-	file, _ := os.Open(fileName)
+	file, _ := os.Open("asserts/html/" + fileName)
 	fileContent, _ := ioutil.ReadAll(file);
 	defer file.Close()
 	return &fileContent

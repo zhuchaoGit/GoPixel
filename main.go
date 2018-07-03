@@ -17,6 +17,7 @@ func setupRouter() *gin.Engine {
 	})
 	r.GET("/index", func(c *gin.Context) {
 		c.Writer.Write(*indexHtmlPtr)
+		c.Writer.Flush()
 	})
 	r.Static("/asserts", "asserts")
 	r.POST("/upload", fileOrg.Upload)
