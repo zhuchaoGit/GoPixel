@@ -23,7 +23,7 @@ func extraDirName(dir []os.FileInfo) []string {
 		imgList[id] = fileInfo.Name()
 		id++
 	}
-	return imgList
+	return imgList[:id]
 }
 func Init() *[]byte {
 	dir, _ := ioutil.ReadDir(fileOrg.HtmlPath())
