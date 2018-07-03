@@ -34,12 +34,12 @@ func Init() *[]byte {
 	return &fileContent
 }
 func clearHtml(fileNameList []string) {
-	len := len(fileNameList)
+	fileCount := len(fileNameList)
 	for _, fileName := range fileNameList {
-		if len <= 2 {
+		if fileCount <= 2 {
 			return
 		}
-		len--
+		fileCount--
 		if strings.HasPrefix(fileName, "index") {
 			if (strings.EqualFold(fileName, fileOrg.TemplateFile())) {
 				continue
