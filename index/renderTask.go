@@ -26,7 +26,7 @@ func extraDirName(dir []os.FileInfo) []string {
 	return imgList
 }
 func Init() *[]byte {
-	dir, _ := ioutil.ReadDir(fileOrg.ImgPath())
+	dir, _ := ioutil.ReadDir(fileOrg.HtmlPath())
 	fileList := extraDirName(dir);
 	sort.Strings(fileList)
 	fileName := fileList[len(fileList)-1]
@@ -38,13 +38,13 @@ func RenderTask(ptr **[]byte) {
 	for t := range ticker.C {
 		log.Printf("render new template:%d", t.Unix())
 		fileName := fmt.Sprintf("index_%10d.html", t.Unix())
-		file, outError := os.Create(fileOrg.ImgOf(fileName))
+		file, outError := os.Create(fileOrg.HtmlOf(fileName))
 		if outError != nil {
 			log.Fatal(outError)
 			continue
 		}
 		writer := bufio.NewWriter(file)
-		tp, err := template.ParseFiles(fileOrg.ImgOf("index_0000000000.html"))
+		tp, err := template.ParseFiles(fileOrg.HtmlOf("index_0000000000.html"))
 		if err != nil {
 			log.Fatal(err)
 			continue
@@ -57,7 +57,7 @@ func RenderTask(ptr **[]byte) {
 		}
 		writer.Flush()
 		file.Close()
-		data, _ := ioutil.ReadFile(fileOrg.ImgOf(fileName))
+		data, _ := ioutil.ReadFile(fileOrg.HtmlOf(fileName))
 		*ptr = &data
 	}
 }
